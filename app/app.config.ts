@@ -62,7 +62,7 @@ export default defineAppConfig({
             {
                 'label': 'Docs source',
                 'icon': 'i-lucide-github',
-                'to': 'https://github.com/EvanSchleret/formforge.schleret.ch',
+                'to': 'https://github.com/EvanSchleret/formforge.evanschleret.ch',
                 'target': '_blank',
                 'aria-label': 'FormForge wiki source repository'
             }
@@ -72,7 +72,7 @@ export default defineAppConfig({
         title: 'On this page',
         bottom: {
             title: 'Resources',
-            edit: 'https://github.com/EvanSchleret/formforge.schleret.ch/edit/main/content',
+            edit: 'https://github.com/EvanSchleret/formforge.evanschleret.ch/edit/main/content',
             links: [
                 {
                     icon: 'i-lucide-box',

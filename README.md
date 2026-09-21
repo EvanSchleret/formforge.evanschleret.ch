@@ -1,62 +1,84 @@
-# Nuxt Docs Template
+# FormForge Wiki
 
-[![Nuxt UI](https://img.shields.io/badge/Made%20with-Nuxt%20UI-00DC82?logo=nuxt&labelColor=020420)](https://ui.nuxt.com)
+Official documentation for [FormForge](https://github.com/EvanSchleret/FormForge), a deterministic dynamic forms engine for Laravel, and [FormForge Client](https://github.com/EvanSchleret/FormForgeClient), its typed Nuxt 4 client.
 
-Use this template to build your own documentation with [Nuxt UI](https://ui.nuxt.com) quickly.
+The site provides practical guides and reference documentation for building, exposing, rendering, and managing forms with a shared schema.
 
-- [Live demo](https://docs-template.nuxt.dev/)
-- [Documentation](https://ui.nuxt.com/docs/getting-started/installation)
+Visit the published wiki at [formforge.evanschleret.ch](https://formforge.evanschleret.ch/).
 
-<a href="https://docs-template.nuxt.dev/" target="_blank">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://ui.nuxt.com/assets/templates/nuxt/docs-dark.png">
-    <source media="(prefers-color-scheme: light)" srcset="https://ui.nuxt.com/assets/templates/nuxt/docs-light.png">
-    <img alt="Nuxt Docs Template" src="https://ui.nuxt.com/assets/templates/nuxt/docs-light.png">
-  </picture>
-</a>
+## What the wiki covers
 
-## Quick Start
+- FormForge backend installation and code-first form definitions.
+- Immutable revisions, publication windows, conditions, validation, and categories.
+- Secure Laravel HTTP APIs with scoped routes, ownership, abilities, and middleware.
+- Submission uploads, drafts, idempotency, automations, exports, and GDPR retention.
+- FormForge Client installation, Nuxt module configuration, composables, and typed runtime APIs.
+- Renderer, builder, preview, controlled, standalone, and admin integration modes.
+- MCP tools and prompts for connecting the documentation to AI assistants.
+- Open-source roadmap, releases, contributing, and security information.
 
-```bash [Terminal]
-npm create nuxt@latest -- -t ui/docs
-```
+## Documentation map
 
-## Deploy your own
+- [Getting started](https://formforge.evanschleret.ch/docs/getting-started)
+- [Concepts](https://formforge.evanschleret.ch/docs/concepts)
+- [Backend documentation](https://formforge.evanschleret.ch/docs/backend/overview)
+- [Client documentation](https://formforge.evanschleret.ch/docs/client/overview)
+- [How do I...?](https://formforge.evanschleret.ch/docs/how-do-i)
+- [MCP and AI](https://formforge.evanschleret.ch/docs/mcp-ai)
+- [Open source](https://formforge.evanschleret.ch/docs/open-source)
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-name=docs&repository-url=https%3A%2F%2Fgithub.com%2Fnuxt-ui-templates%2Fdocs&demo-image=https%3A%2F%2Fui.nuxt.com%2Fassets%2Ftemplates%2Fnuxt%2Fdocs-dark.png&demo-url=https%3A%2F%2Fdocs-template.nuxt.dev%2F&demo-title=Nuxt%20Docs%20Template&demo-description=A%20documentation%20template%20powered%20by%20Nuxt%20Content.)
+## MCP endpoint
 
-## Setup
+The wiki exposes an MCP server at [`https://formforge.evanschleret.ch/mcp`](https://formforge.evanschleret.ch/mcp). MCP-compatible clients can use it to discover documentation pages, read their Markdown source, and suggest an integration mode.
 
-Make sure to install the dependencies:
+See the [MCP connection guide](https://formforge.evanschleret.ch/docs/mcp-ai/connect-your-client) for client configuration examples.
+
+## Local development
+
+This repository contains a Nuxt 4 application powered by Nuxt UI, Nuxt Content, and the Nuxt MCP Toolkit.
+
+### Requirements
+
+- [Bun](https://bun.sh/) `>=1.3`
+- A GitHub token if the local site should display GitHub release or star data
+
+### Setup
 
 ```bash
+cp .env.example .env
 bun install
 ```
 
-## Development Server
+Set `SITE_URL` in `.env` when generating absolute URLs. Set `GITHUB_TOKEN` to enable authenticated GitHub API requests for the dashboard data.
 
-Start the development server on `http://localhost:3000`:
+### Development server
 
 ```bash
 bun run dev
 ```
 
-## Production
+### Quality checks
 
-Build the application for production:
+```bash
+bun run lint
+bun run typecheck
+```
+
+### Production preview
 
 ```bash
 bun run build
-```
-
-Locally preview production build:
-
-```bash
 bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+The repository also includes a `Dockerfile` for building and running the Nuxt application with Bun.
 
-## Renovate integration
+## Related repositories
 
-Install [Renovate GitHub app](https://github.com/apps/renovate/installations/select_target) on your repository and you are good to go.
+- [FormForge backend](https://github.com/EvanSchleret/FormForge)
+- [FormForge Client](https://github.com/EvanSchleret/FormForgeClient)
+- [FormForge Wiki](https://github.com/EvanSchleret/formforge.evanschleret.ch)
+
+## License
+
+This documentation site is available under the [MIT License](LICENSE).

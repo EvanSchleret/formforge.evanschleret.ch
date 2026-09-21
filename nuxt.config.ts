@@ -35,6 +35,9 @@ export default defineNuxtConfig({
                     ]
                 }
             }
+        },
+        experimental: {
+            sqliteConnector: 'bun'
         }
     },
 
@@ -81,6 +84,10 @@ export default defineNuxtConfig({
     },
 
     compatibilityDate: '2024-07-11',
+
+    nitro: {
+        preset: 'bun'
+    },
 
     eslint: {
         config: {
