@@ -42,8 +42,8 @@ const sectionOrder = [
 ]
 
 const sectionChildOrder: Record<string, string[]> = {
-    'backend': ['overview', 'forms', 'http-api', 'operations'],
-    'client': ['overview', 'composables', 'components', 'reference'],
+    'backend': ['overview', 'forms', 'http-api', 'validation', 'operations'],
+    'client': ['overview', 'components', 'composables', 'standalone', 'reference'],
     'mcp-ai': ['mcp-ai'],
     'open-source': ['', 'roadmap', 'releases', 'contributing', 'getting-help', 'security']
 }
@@ -71,7 +71,7 @@ function sectionChildKeyFromPath(path: string | undefined): string {
 }
 
 function normalizeNavigationItem(item: ContentNavigationItem, isSection: boolean = false): ContentNavigationItem | null {
-    const children = (item.children ?? [])
+    let children = (item.children ?? [])
         .map(child => normalizeNavigationItem(child))
         .filter((child): child is ContentNavigationItem => child !== null)
 
@@ -87,6 +87,23 @@ function normalizeNavigationItem(item: ContentNavigationItem, isSection: boolean
     const sectionKey = sectionKeyFromPath(resolvedPath)
     const sectionPath = isSection ? (defaultSectionPaths[sectionKey] ?? `/docs/${sectionKey}`) : resolvedPath
     const icon = isSection ? defaultSectionIcons[sectionKey] : undefined
+
+    if (isSection) {
+        const order = sectionChildOrder[sectionKey] ?? []
+
+        children = [...children].sort((a, b) => {
+            const aIndex = order.indexOf(sectionChildKeyFromPath(a.path))
+            const bIndex = order.indexOf(sectionChildKeyFromPath(b.path))
+            const aWeight = aIndex === -1 ? Number.POSITIVE_INFINITY : aIndex
+            const bWeight = bIndex === -1 ? Number.POSITIVE_INFINITY : bIndex
+
+            if (aWeight !== bWeight) {
+                return aWeight - bWeight
+            }
+
+            return a.title.localeCompare(b.title)
+        })
+    }
 
     return {
         ...item,
@@ -141,34 +158,11 @@ const currentSectionNavigation = computed<ContentNavigationItem[]>(() => {
         return sectionKeyFromPath(item.path) === currentSectionKey.value
     })
 
-    if (currentSection) {
-        if (Array.isArray(currentSection.children) && currentSection.children.length > 0) {
-            const order = sectionChildOrder[currentSectionKey.value] ?? []
-
-            if (order.length === 0) {
-                return currentSection.children
-            }
-
-            return [...currentSection.children].sort((a, b) => {
-                const aKey = sectionChildKeyFromPath(a.path)
-                const bKey = sectionChildKeyFromPath(b.path)
-                const aIndex = order.indexOf(aKey)
-                const bIndex = order.indexOf(bKey)
-                const aWeight = aIndex === -1 ? Number.POSITIVE_INFINITY : aIndex
-                const bWeight = bIndex === -1 ? Number.POSITIVE_INFINITY : bIndex
-
-                if (aWeight !== bWeight) {
-                    return aWeight - bWeight
-                }
-
-                return a.title.localeCompare(b.title)
-            })
-        }
-
-        return [currentSection]
+    if (currentSection?.children?.length) {
+        return currentSection.children
     }
 
-    return normalizedNavigation.value
+    return currentSection ? [currentSection] : normalizedNavigation.value
 })
 </script>
 
@@ -176,7 +170,7 @@ const currentSectionNavigation = computed<ContentNavigationItem[]>(() => {
     <div>
         <div
             v-if="sectionLinks.length > 0"
-            class="w-full border-y border-default bg-elevated/40"
+            class="sticky top-(--ui-header-height) z-40 w-full border-y border-default bg-elevated/95 backdrop-blur"
         >
             <UContainer>
                 <UNavigationMenu
@@ -195,6 +189,7 @@ const currentSectionNavigation = computed<ContentNavigationItem[]>(() => {
                     <UPageAside>
                         <UContentNavigation
                             highlight
+                            :default-open="true"
                             :navigation="currentSectionNavigation"
                         />
                     </UPageAside>

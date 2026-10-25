@@ -9,6 +9,7 @@ definePageMeta({
 const route = useRoute()
 const { toc } = useAppConfig()
 const navigation = inject<Ref<ContentNavigationItem[]>>('navigation')
+const builderPagePath = '/docs/client/components/formforge-builder'
 
 const { data: page } = await useAsyncData(route.path, () => queryCollection('docs').path(route.path).first())
 if (!page.value) {
@@ -68,6 +69,16 @@ const links = computed(() => {
         >
             <template #links>
                 <UButton
+                    v-if="page.path === builderPagePath"
+                    to="/docs/client/components/formforge-builder-demo"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    icon="i-lucide-play"
+                >
+                    Try the builder
+                </UButton>
+
+                <UButton
                     v-for="(link, index) in page.links"
                     :key="index"
                     v-bind="link"
@@ -78,10 +89,7 @@ const links = computed(() => {
         </UPageHeader>
 
         <UPageBody>
-            <ContentRenderer
-                v-if="page"
-                :value="page"
-            />
+            <ContentRenderer :value="page" />
 
             <USeparator v-if="surround?.length" />
 

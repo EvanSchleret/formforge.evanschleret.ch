@@ -56,13 +56,7 @@ const navigationItems = computed<NavigationMenuItem[]>(() => [
         label: 'Docs',
         icon: 'i-lucide-book-open',
         to: '/docs/getting-started',
-        active: isSectionActive(['getting-started', 'concepts', 'how-do-i', 'backend', 'client', 'open-source'])
-    },
-    {
-        label: 'AI',
-        icon: 'i-lucide-bot',
-        to: '/docs/mcp-ai',
-        active: isSectionActive('mcp-ai')
+        active: isSectionActive(['getting-started', 'concepts', 'how-do-i', 'backend', 'client', 'mcp-ai', 'open-source'])
     },
     {
         label: 'OSS',
