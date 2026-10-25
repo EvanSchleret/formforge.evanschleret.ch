@@ -4,6 +4,7 @@ export default defineNuxtConfig({
         '@nuxt/eslint',
         '@nuxt/image',
         '@nuxt/ui',
+        '@evanschleret/formforgeclient',
         '@nuxt/content',
         'nuxt-og-image',
         'nuxt-llms',
@@ -63,6 +64,9 @@ export default defineNuxtConfig({
     },
 
     routeRules: {
+        '/docs/client/composables/form-and-submission': { redirect: '/docs/client/composables' },
+        '/docs/client/composables/management-categories-responses': { redirect: '/docs/client/composables' },
+        '/docs/client/composables/drafts-uploads-resolver-wizard-i18n': { redirect: '/docs/client/composables' },
         '/getting-started': { redirect: '/docs/getting-started' },
         '/concepts': { redirect: '/docs/concepts' },
         '/how-do-i': { redirect: '/docs/how-do-i' },
@@ -87,6 +91,12 @@ export default defineNuxtConfig({
 
     nitro: {
         preset: 'bun'
+    },
+
+    vite: {
+        optimizeDeps: {
+            include: ['vuedraggable']
+        }
     },
 
     eslint: {
