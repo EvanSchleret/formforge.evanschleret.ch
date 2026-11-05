@@ -113,7 +113,7 @@ export default defineNuxtConfig({
     },
 
     llms: {
-        domain: process.env.SITE_URL,
+        domain: 'https://formforge.evanschleret.ch',
         title: 'FormForge Wiki',
         description: 'Official documentation for FormForge backend and FormForge Client.',
         full: {
